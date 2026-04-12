@@ -18,7 +18,7 @@ The Administrator account of the Windows 2019 Server was revealed during a Kerbe
 
 ## Evidence
 
-Chrystal Burris was identified as a Domain Administrator account during a previous Kerberoasting enumeration. Her NT hash was recovered using impacket suite's SecretsDump and used to authenticate to her account without any knowledge of her plaintext password.
+Chrystal Burris was identified as a Domain Administrator account during a previous [Kerberoasting](kerberoasting.md) enumeration. Her NT hash was recovered using impacket suite's SecretsDump and used to authenticate to her account without any knowledge of her plaintext password.
 
 ```
 lab.local\CHRYSTAL_BURRIS:1150:aad3b435b51404eeaad3b435b51404ee:5c519514ffe21c74ce07ecb268a4ed14:::
