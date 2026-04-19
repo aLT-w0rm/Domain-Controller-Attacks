@@ -4,9 +4,9 @@ I'm using my home lab VLAN to host an intentinoally vulnerable Windows Server 20
 | # | Technique | Status | Writeup |
 |---|-----------|--------|---------|
 | 1 | Kerberoasting | ✅ Complete | [findings/Kerberoasting.md](findings/Kerberoasting.md) |
-| 2 | Golden Ticket | ✅ Complete | Complete - Writeup Pending. |
+| 2 | Golden Ticket | ✅ Complete | [findings/GoldenTicket.md](findings/GoldenTicket.md) |
 | 3 | Pass the Hash | ✅ Complete | [findings/PassTheHash.md](findings/PassTheHash.md) |
-| 4 | DCSync (secretsdump.py) | ✅ Complete  | Complete - Writeup Pending. |
+| 4 | DCSync (secretsdump.py) | ✅ Complete  | [findings/DCSync.md](findings/DCSync.md) |
 | 5 | AV/AMSI Bypass — Certify | ⬜ Pending | — |
 | 6 | AV/AMSI Bypass — BloodHound | ⬜ Pending | — |
 | 7 | AV/AMSI Bypass — Rubeus | ⬜ Pending | — |
