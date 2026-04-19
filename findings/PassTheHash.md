@@ -6,7 +6,7 @@
 | **Technique** | Pass the Hash (PtH) |
 | **Target** | `192.168.120.100` — `DC01-WINDOWSSERVER2019` |
 | **Domain** | `lab.local` |
-| **Prerequisite** | [Kerberoasting Finding](kerberoasting.md) |
+| **Prerequisite** | [Kerberoasting Finding](Kerberoasting.md) |
 
 ---
 
