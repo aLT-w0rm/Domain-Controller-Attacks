@@ -16,7 +16,7 @@ I'm using my home lab VLAN to host an intentinoally vulnerable Windows Server 20
 | 11 | ADCS — Certify.exe / Certify.py | ⬜ Pending | — |
 | 12 | Vulnerable-AD attack list | ⬜ Pending | [Reference](https://github.com/safebuffer/vulnerable-AD?tab=readme-ov-file) |
 | 13 | AWS C2 + SSH SOCKS proxy | ⬜ Pending | — |
-| 14 | LDAP Enumertion Observations (description field) | Pending | - |
+| 14 | LDAP Exposed User Descriptions | ✅ Complete | [findings/ExposedUserDescriptions](findings/ExposedUserDescriptions) |
 
 ## Lab Environment
 
