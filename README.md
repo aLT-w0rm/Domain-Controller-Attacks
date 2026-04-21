@@ -6,17 +6,22 @@ I'm using my home lab VLAN to host an intentinoally vulnerable Windows Server 20
 | 1 | Kerberoasting | ✅ Complete | [findings/Kerberoasting.md](findings/Kerberoasting.md) |
 | 2 | Golden Ticket | ✅ Complete | [findings/GoldenTicket.md](findings/GoldenTicket.md) |
 | 3 | Pass the Hash | ✅ Complete | [findings/PassTheHash.md](findings/PassTheHash.md) |
-| 4 | DCSync (secretsdump.py) | ✅ Complete  | [findings/DCSync.md](findings/DCSync.md) |
-| 5 | AV/AMSI Bypass — Certify | ⬜ Pending | — |
-| 6 | AV/AMSI Bypass — BloodHound | ⬜ Pending | — |
-| 7 | AV/AMSI Bypass — Rubeus | ⬜ Pending | — |
-| 8 | Responder — NetNTLMv2 Capture | ⬜ Pending | — |
-| 9 | NTLM Relay (ntlmrelayx.py) | ⬜ Pending | — |
-| 10 | Password Spraying |  ✅ Complete | [findings/PasswordSpraying.md](findings/PasswordSpraying.md) |
-| 11 | ADCS — Certify.exe / Certify.py | ⬜ Pending | — |
-| 12 | Vulnerable-AD attack list | ⬜ Pending | [Reference](https://github.com/safebuffer/vulnerable-AD?tab=readme-ov-file) |
-| 13 | AWS C2 + SSH SOCKS proxy | ⬜ Pending | — |
-| 14 | LDAP Exposed User Descriptions | ✅ Complete | [findings/ExposedUserDescriptions](findings/ExposedUserDescriptions) |
+| 4 | DCSync (secretsdump.py) | ✅ Complete | [findings/DCSync.md](findings/DCSync.md) |
+| 5 | Password Spraying | ✅ Complete | [findings/PasswordSpraying.md](findings/PasswordSpraying.md) |
+| 6 | LDAP Exposed User Descriptions | ✅ Complete | [findings/ExposedUserDescriptions.md](findings/ExposedUserDescriptions.md) |
+| 7 | AS-REP Roasting | ⬜ Pending | — |
+| 8 | Abusing ACLs/ACEs | ⬜ Pending | — |
+| 9 | Silver Ticket | ⬜ Pending | — |
+| 10 | Pass-the-Ticket | ⬜ Pending | — |
+| 11 | Abuse DnsAdmins | ⬜ Pending | — |
+| 12 | NTLM Relay (ntlmrelayx.py) | ⬜ Pending | — |
+| 13 | Responder — NetNTLMv2 Capture | ⬜ Pending | — |
+| 14 | ADCS — Certify.exe / Certify.py | ⬜ Pending | — |
+| 15 | AV/AMSI Bypass — Certify | ⬜ Pending | — |
+| 16 | AV/AMSI Bypass — BloodHound | ⬜ Pending | — |
+| 17 | AV/AMSI Bypass — Rubeus | ⬜ Pending | — |
+| 18 | SMB Signing Disabled | ⬜ Pending | — |
+| 19 | AWS C2 + SSH SOCKS Proxy | ⚠️ Partial | — |
 
 ## Lab Environment
 
@@ -30,7 +35,7 @@ I'm using my home lab VLAN to host an intentinoally vulnerable Windows Server 20
 **Domain:** `lab.local`  
 **Hypervisor:** VMware on dedicated Laptop.  
 **Router:** pfSense (VPN access via OpenVPN)  
-**Vulnerable AD:** [safebuffer/vulnerable-AD](https://github.com/safebuffer/vulnerable-AD) + BadBlood
+**Vulnerable AD:** [safebuffer/vulnerable-AD](https://github.com/safebuffer/vulnerable-AD) + [David Prowe's BadBlood](https://github.com/davidprowe/BadBlood)
 
 ---
 
