@@ -1,5 +1,5 @@
 ## Domain Controller / Active Directory attacks.
-I'm using my home lab VLAN to host an intentinoally vulnerable Windows Server 2019 Active Directory & Domain Controller for practice attacks.  Built for educational purposes in: Networking, Setting up an AD / DC, preparation for professional penetration testing.
+I'm using my home lab VLAN to host an intentionally vulnerable Windows Server 2019 Active Directory & Domain Controller for practice attacks.  Built for educational purposes in: Networking, Setting up an AD / DC, preparation for professional penetration testing.
 
 | # | Technique | Status | Writeup |
 |---|-----------|--------|---------|
@@ -51,10 +51,10 @@ SMB  192.168.120.100  445  DC01-WINDOWSSER  [*] Windows 10 / Server 2019 Build 1
 ```
 
 **Key observations:**
-- SMB Signing: **True** — direct NTLM relay to this host not possible
-- Null Auth: **True** — misconfiguration, allows unauthenticated enumeration
-- SMBv1: **None** — legacy attack surface not present
+- SMB Signing: **True** — Direct NTLM relay to this host not possible.
+- Null Auth: **True** — Misconfiguration, allows unauthenticated enumeration.
+- SMBv1: **None** — Legacy attack surface not present.
 
 ---
 
-> ⚠️ **This lab is for educational purposes only. All testing is performed against intentionally vulnerable systems in an isolated private network.**
+> ⚠️ **This lab is for documentation practices, educational purposes, and all of my own equipment/property.**
