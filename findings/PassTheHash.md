@@ -7,12 +7,13 @@
 | **Target** | `192.168.120.100` — `DC01-WINDOWSSERVER2019` |
 | **Domain** | `lab.local` |
 | **Prerequisite** | [Kerberoasting Finding](Kerberoasting.md) |
+| **Prerequisite** | Known Breach Credentials (`lab.local\gsnake`) |
 
 ---
 
 ## Description
 
-The Administrator account of the Windows 2019 Server was revealed during a Kerberoast attack. Of which, the password for `Administrator` was cracked with Hashcat, and access was gained through the Administrator account. After which we are able to use impacket suite's SecretsDump to dump the NTLM hashes of the system and perform a Pass the Hash attack.
+The Administrator account of the Windows 2019 Server was revealed during a Kerberoast attack. The password for `Administrator` was cracked with Hashcat, and access was gained through the Administrator account. After, impacket suite's SecretsDump is used to dump the NTLM hashes of the system and perform a Pass the Hash attack.
 
 ---
 
@@ -40,7 +41,7 @@ netexec smb 192.168.120.100 -u 'CHRYSTAL_BURRIS' -H '5c519514ffe21c74ce07ecb268a
 
 ## Impact
 
-Being able to take over and use a Domain Administrator's account is extremely critical. Through this, we are given full access to the domain as an Administrator, in which we can achieve several malicious goals: read, write, and exfil all shared files in the domain, create new accounts for persistence on the system, and modify and disable security controls on the system.
+Being able to take over and use a Domain Administrator's account is extremely critical. Full access is given to the domain as an Administrator, which can achieve several malicious goals: read, write, and exfil all shared files in the domain, create new accounts for persistence on the system, and modify and disable security controls on the system.  This will work to access any machine where CHRYSTAL_BURRIS credentials are cached.
 
 ---
 
@@ -59,6 +60,18 @@ Being able to take over and use a Domain Administrator's account is extremely cr
 5. **Utilize Credential Guard** — a Windows feature that protects credentials in memory using virtualization. This makes hash extraction exceptionally more difficult.
 
 6. **Ensure SIEM and EDR are monitoring** for suspicious NTLM authentications such as accounts authenticating through NT hashes rather than passwords, or authenticating from anomalous source hosts.
+
+---
+
+## Detection
+
+1. **Event ID 4624 Logon Type 3** will reveal network logins with an NT hash instead of valid credentials.  Look for `NtlmSsp` in the authentication package field.
+
+2. **Event ID 4776** shows NTLM credential validation on the DC.  Review for timed authentication anomalies and unusual source hosts.
+
+3. EDR tools like Defender for Identity will flag Pass the Hash directly via anomalous lateral movement patterns.
+
+4. Users authenticating from unknown source IP's rather than their common workstations would be caught by a User & Entity Behavior Analysis (UEBA) solution.
 
 ---
 
