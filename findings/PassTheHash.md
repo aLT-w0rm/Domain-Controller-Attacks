@@ -7,7 +7,7 @@
 | **Target** | `192.168.120.100` — `DC01-WINDOWSSERVER2019` |
 | **Domain** | `lab.local` |
 | **Prerequisite** | [Kerberoasting Finding](Kerberoasting.md) |
-| **Prerequisite** | Known Breach Credentials (`lab.local\gsnake`) |
+| **Prerequisite** | Assumed Initial Access (`lab.local\gsnake`) |
 
 ---
 
