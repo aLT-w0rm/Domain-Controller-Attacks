@@ -2,21 +2,22 @@
 
 | Field | Details |
 |-------|---------|
-| **Severity** | 🟠 High |
+| **Severity** (Technique) | 🟠 High |
+| **Severity** (Environmental) | 🔴 Critical |
 | **Technique** | Password Spraying |
 | **Target** | `192.168.120.100` — `DC01-WINDOWSSERVER2019` |
 | **Domain** | `lab.local` |
-| **Prerequisite** | Known Breach Credentials (`lab.local\gsnake`) |
+| **Prerequisite** | Assumed Initial Access (`lab.local\gsnake`) |
 
 ## Description
 
-Using a password spraying attack to attempt a single password across multiple user accounts. Enumerated users from LDAP with "Known Breach" supplied credentials for initial access. Sprayed specific targeted passwords (Password123!, Summer2024!, 123456789) across domain accounts.
+Using a password spraying attack to attempt a single password across multiple user accounts. Enumerated users from LDAP with "Assumed Initial Access" supplied credentials for access. Sprayed specific targeted passwords (Password123!, Summer2024!, 123456789) across domain accounts.  Password Spraying attack techniques present a high severity in terms of classification, however the findings in this report provide critical results.
 
 ## Evidence
 
 ### Evidence (A) : Password Policy Enumeration
 
-Using credentials supplied from the Known Breach scenario, the password policy was enumerated to better understand complexity requirements for forming predictive passwords.
+Using credentials supplied from the Assumed Initial Access scenario, the password policy was enumerated to better understand complexity requirements for forming predictive passwords.
 
     netexec smb 192.168.120.100 -u 'gsnake' -p 'iloveyou01!' --pass-pol
 
@@ -63,8 +64,19 @@ Password spraying weak password `Password123!` confirmed credentials for account
 > Remediations are not listed in any specific order of severity unless otherwise listed.
 
 1. **[IMPORTANT]** Ensure there is a lockout procedure for all accounts.
+
 2. **[IMPORTANT]** Ensure there is a lockout procedure for Admin accounts.
+
 3. Follow NIST guidelines for password phrases which emphasizes password length over password complexity. (Source: https://pages.nist.gov/800-63-4/sp800-63b.html)
-4. Monitor for suspicious login activities (EventID 4625 & 4648 in rapid succession across multiple accounts).  Key indicators are low failure count per account with high diversity in accounts over a short period of time.
-5. Employ Microsoft Defender for Identity (MDI) which has Password Spraying algorithms already in place.
-6. Monitor for unusual sources of authentication, such as multiple attempts from a single IP.
+
+4. Employ Microsoft Defender for Identity (MDI) which has Password Spraying algorithms already in place.
+
+5. Monitor for unusual sources of authentication, such as multiple attempts from a single IP.
+
+---
+
+## Detection
+
+1. Monitor for suspicious login activities (EventID 4625 & 4648 in rapid succession across multiple accounts).  Key indicators are low failure count per account with high diversity in accounts over a short period of time.
+2. Baseline a normal authentication failure rate per subnet.  Regardless of count per account, an anomalous IP generating failures across many accounts is a key indicator.
+3. Because there is no lockout threshold there are no lockout events to alert on.  In this case, SIEM volume-based detection is even more critical.
