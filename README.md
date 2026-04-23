@@ -1,5 +1,5 @@
 ## Domain Controller / Active Directory attacks.
-I'm using my home lab VLAN to host an intentionally vulnerable Windows Server 2019 Active Directory & Domain Controller for practice attacks.  Built for educational purposes in: Networking, Setting up an AD / DC, preparation for professional penetration testing.
+I'm using my home lab VLAN to host an intentionally vulnerable Windows Server 2019 Active Directory & Domain Controller for practice attacks.  Built for educational purposes in: Networking, Setting up an AD / DC, preparation for professional penetration testing.  Attacks documented in this series are from an "Assumed Breach" initial foothold where low-level credentials have been supplied by the party requiring the testing.
 
 | # | Technique | Status | Writeup |
 |---|-----------|--------|---------|
