@@ -6,13 +6,13 @@
 | **Technique** | Kerberoasting |
 | **Target** | `192.168.120.100` — `DC01-WINDOWSSERVER2019` |
 | **Domain** | `lab.local` |
-| **Prerequisite** | Known Breach Credentials (`lab.local\gsnake`) |
+| **Prerequisite** | Assumed Initial Access Credentials (`lab.local\gsnake`) |
 
 ---
 
 ## Description
 
-Target system is susceptible to kerberoasting attack, which allows any user with valid domain credentials to enumerate all accounts on the DC with an SPN. After which we can enumerate important user groups like Domain Admins, Service Accounts, Remote Desktop Users.  Original foothold credentials were supplied under a "Known Breach" scenario (gsnake.)
+Target system is susceptible to kerberoasting attack, which allows any user with valid domain credentials to enumerate all accounts on the DC with an SPN. After which we can enumerate important user groups like Domain Admins, Service Accounts, Remote Desktop Users.  Original foothold credentials were supplied under a "Assumed Initial Access" scenario (gsnake.)
 
 ---
 
