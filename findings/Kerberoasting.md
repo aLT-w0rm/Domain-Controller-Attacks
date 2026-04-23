@@ -70,6 +70,8 @@ If we are able to compromise the `Administrator` account, we have both domain ac
 
 4. `exchange_svc$` using AES-256 will be more difficult to flag on encryption type alone; rely on timing and volume anomalies.
 
+---
+
 ## Appendix A
 
 <details>
