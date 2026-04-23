@@ -19,7 +19,7 @@ BloodHound AD enumeration revealed 3 non-administrative accounts with misconfigu
 
 ## Evidence
 
-Using a non administrative account harvested from a BloodHound enumeration (RORIE.ROANA - See ##Appendix) the same NT Hashes were harvested as the Domain Administrator (CHRYSTAL_BURRIS) account and the Administrator account.
+Using a non administrative account harvested from a BloodHound enumeration (RORIE.ROANA - See [Appendix](#appendix)) the same NT Hashes were harvested as the Domain Administrator (CHRYSTAL_BURRIS) account and the Administrator account.
 
 ```
 krbtgt:502:aad3b435b51404eeaad3b435b51404ee:b207f3a04617ddbb7249b71872abcf64:::
@@ -73,7 +73,7 @@ Harvesting the hashes results in the krbtgt hash which is used to create a Golde
 
 2.  DCSync from an IP not related to the DC is a key indicator.
 
-3.  Defender for Identity has decetion rules for DCSync built in.
+3.  Defender for Identity has detection rules for DCSync built in.
 
 4.  **Event ID 4662** "An operation was performed on an object."  Look for calls to replication GUIDs;
     - `1131f6aa-9c07-11d1-f79f-00c04fc2dcd2` (GetChanges)
@@ -82,4 +82,4 @@ Harvesting the hashes results in the krbtgt hash which is used to create a Golde
 ---
 
 ## Appendix
-:: TO DO:  Add Screenshot of Bloodhound's Enumeration of accounts with GetChangesAll, GetChanges, GetChangesInfIlteredSet .
+:: TO DO:  Add Screenshot of Bloodhound's Enumeration of accounts with GetChangesAll, GetChanges, GetChangesInFilteredSet .
