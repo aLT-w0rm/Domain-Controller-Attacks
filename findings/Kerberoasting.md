@@ -6,12 +6,13 @@
 | **Technique** | Kerberoasting |
 | **Target** | `192.168.120.100` — `DC01-WINDOWSSERVER2019` |
 | **Domain** | `lab.local` |
+| **Prerequisite** | Known Breach Credentials (`lab.local\gsnake`) |
 
 ---
 
 ## Description
 
-Target system is susceptible to kerberoasting attack, which allows any user with valid domain credentials to enumerate all accounts on the DC with an SPN. After which we can enumerate important user groups like Domain Admins, Service Accounts, Remote Desktop Users.
+Target system is susceptible to kerberoasting attack, which allows any user with valid domain credentials to enumerate all accounts on the DC with an SPN. After which we can enumerate important user groups like Domain Admins, Service Accounts, Remote Desktop Users.  Original foothold credentials were supplied under a "Known Breach" scenario (gsnake.)
 
 ---
 
@@ -25,6 +26,7 @@ Pulled 43 SPNs from the Kerberoast attack. Found specific records for 2 Domain A
 | `CHRYSTAL_BURRIS` | Domain Admins | RC4 (etype 23) | 🔴 Critical |
 | `CHARLES_JACOBSON` | Backup Operators | RC4 (etype 23) | 🟠 High |
 | `exchange_svc$` | — | AES-256 (etype 18) | 🟡 Medium |
+
 
 **Command used:**
 
@@ -46,7 +48,7 @@ If we are able to compromise the `Administrator` account, we have both domain ac
 
 > Remediations are not listed in any specific order of severity unless otherwise noted.
 
-1. **[PRIMARY CONSIDERATION]** Enable gMSA (Group Managed Service Accounts) to manage the service accounts on the DC. This will enforce rotating passwords of 120 characters which will make the service accounts almost virtually uncrackable.
+1. **[PRIMARY CONSIDERATION]** Enable gMSA (Group Managed Service Accounts) to manage the service accounts on the DC. This will enforce rotating passwords of 120 characters which will make the service accounts virtually uncrackable.
 
 2. **Strong password policy for service accounts (realistically all accounts).** Minimum of 25+ characters that are randomly generated for service accounts. Strong password policies for human accounts — Examples: Phrases for passwords (e.g. `"I bought 12 boxes of Donuts!"`), not using predictable patterns like `SeasonYearSymbol`. Human lead training on proper password security practices (perhaps ISO standards).
 
@@ -57,6 +59,16 @@ If we are able to compromise the `Administrator` account, we have both domain ac
 5. **Ensure SIEMs and EDRs are logging for suspicious activity for kerberoasting.** Look for spike in volume for Ticket Granting Service requests from single accounts.
 
 ---
+
+## Detection
+
+1. TGS Request: **Event ID 4769**.  High volumes of 4769 events from one account in a short period of time is a primary indicator.
+
+2. Create a baseline for normal TGS requests per account.  Kerberoasting generally creates a burst of requests; 43 requests in a short period of time is anomalous.
+
+3. Look for **etype 0x17 (RC4)** in the 4769 logs.  Modern environments predominantly show AES; RC4 requests stand out.
+
+4. `exchange_svc$` using AES-256 will be more difficult to flag on encryption type alone; rely on timing and volume anomalies.
 
 ## Appendix A
 
