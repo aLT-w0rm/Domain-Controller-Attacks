@@ -108,4 +108,12 @@ Golden Tickets allow attackers to maintain persistent access and control of a Do
 
 1. **[CRITICAL] Rotate krbtgt passwords TWICE when compromises are found.** Rotating the krbtgt password once is NOT sufficient. (When the krbtgt password is changed once the previous entry is still valid and requires a second rotation to completely eliminate it.)
 2. **Treat any DCSync findings as an immediate requirement to rotate the krbtgt password TWICE** as recommended above.
-3. **Monitor Kerberos tickets for abnormally long lifespans** (10 Years on a Golden Ticket vs Default 10 Hours on a Kerberos ticket).
+
+---
+
+## Detection
+
+1. **Event ID 4769**.  Look for Kerberos tickets with abnormally long lifepans.  (10 Years on a Golden Ticket vs Default 10 Hours on a Kerberos ticket.)
+2. Detection relies on ticket anomalies.  There is no failed authentication events, NTLM events, and DC logs to review.
+3. Monitor for **RC4 Encryption (etype 0x17)** on Ticket Granting Tickets (TGTs) in environments where AES is enforced.  A golden ticket forced with RC4 will stand out.
+4. Defender for Identity has a built in rule for Golden Tickets and will flag them for impossible ticket attributes and anomalous Privilege Access Controls (PACs).
