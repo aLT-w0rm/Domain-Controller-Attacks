@@ -19,7 +19,7 @@ BloodHound AD enumeration revealed 3 non-administrative accounts with misconfigu
 
 ## Evidence
 
-Using a non administrative account harvested from a BloodHound enumeration (RORIE.ROANA) the same NT Hashes were harvested as the Domain Administrator (CHRYSTAL_BURRIS) account and the Administrator account.
+Using a non administrative account harvested from a BloodHound enumeration (RORIE.ROANA - See ##Appendix) the same NT Hashes were harvested as the Domain Administrator (CHRYSTAL_BURRIS) account and the Administrator account.
 
 ```
 krbtgt:502:aad3b435b51404eeaad3b435b51404ee:b207f3a04617ddbb7249b71872abcf64:::
@@ -49,7 +49,7 @@ diff DCSync1.txt DCSync3.txt
 
 ## Impact
 
-Harvesting the hashes results in the krbtgt hash which is used to create a Golden Ticket which allows an attacker to use the ticket to impersonate and access any account on the DC and ultimately acquire full domain access. The use of Golden Tickets will allow persistence in the DC without valid credentials even after password resets/updates.
+Harvesting the hashes results in the krbtgt hash which is used to create a Golden Ticket.  This allows an attacker to use the ticket to impersonate and access any account on the DC and ultimately acquire full domain access. The use of Golden Tickets will allow persistence in the DC without valid credentials even after password resets/updates.  It is worth noting that the DCSync harvests credentials for every account in the domain and reveals every password hash in the directory.
 
 ---
 
@@ -65,4 +65,21 @@ Harvesting the hashes results in the krbtgt hash which is used to create a Golde
 
 4. **Update krbtgt password twice in any events of remediation** to eliminate forged Kerberos tickets.
 
-5. **Enable tracking on SIEM & EDR systems** to monitor for suspicious DC replication that come from non-DC systems.
+---
+
+## Detection
+
+1.  **Enable tracking on SIEM & EDR systems** to monitor for suspicious DC replication that come from non-DC systems.
+
+2.  DCSync from an IP not related to the DC is a key indicator.
+
+3.  Defender for Identity has decetion rules for DCSync built in.
+
+4.  **Event ID 4662** "An operation was performed on an object."  Look for calls to replication GUIDs;
+    - `1131f6aa-9c07-11d1-f79f-00c04fc2dcd2` (GetChanges)
+    - `1131f6ab-9c07-11d1-f79f-00c04fc2dcd2` (GetChangesAll)
+
+---
+
+## Appendix
+:: TO DO:  Add Screenshot of Bloodhound's Enumeration of accounts with GetChangesAll, GetChanges, GetChangesInfIlteredSet .
