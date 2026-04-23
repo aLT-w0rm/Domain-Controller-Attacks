@@ -6,7 +6,7 @@
 | **Technique** | Kerberoasting |
 | **Target** | `192.168.120.100` — `DC01-WINDOWSSERVER2019` |
 | **Domain** | `lab.local` |
-| **Prerequisite** | Assumed Initial Access Credentials (`lab.local\gsnake`) |
+| **Prerequisite** | Assumed Initial Access (`lab.local\gsnake`) |
 
 ---
 
