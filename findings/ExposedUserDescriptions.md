@@ -6,17 +6,17 @@
 | **Technique** | LDAP User Enumeration / Credential Exposure |
 | **Target** | `192.168.120.100` — `DC01-WINDOWSSERVER2019` |
 | **Domain** | `lab.local` |
-| **Prerequisite** | Known Breach Credentials (`lab.local\gsnake`) |
+| **Prerequisite** | Assumed Initial Access (`lab.local\gsnake`) |
 
 ## Description
 
-Simply checking the "User Description" field of LDAP enumerated accounts.
+In the Active Directory, the User Description field is readable by any authenticated domain user and requires no elevated privileges to access.  Three accounts were found with credential information stored in plaintext in their User Description field.  This is easily discoverable with a single LDAP enumeration command.
 
 ## Evidence
 
 ### Evidence (A) : User Enumeration and Credential Discovery
 
-Using credentials supplied from the Known Breach scenario (this can be performed by any authenticated account on the domain), enumeration of users from LDAP revealed two accounts with exposed plaintext passwords, and a third with 'DefaultPassword' which did not authenticate, but is dangerous if its cracked and the default password is used for all new accounts, allowing all new accounts to be open to exposure. Using a "default password" also opens all new accounts created for new users to guess the passwords for any new accounts created as well, coupled with no lockout procedure (read: [Password Spraying](PasswordSpraying)) this is dangerous.
+Using credentials supplied from the Assumed Initial Access scenario, enumeration of users from LDAP revealed two accounts with exposed plaintext passwords, and a third with 'DefaultPassword' which did not authenticate.
 
     netexec smb 192.168.120.100 -u 'gsnake' -p 'iloveyou01!' --users
 
@@ -28,18 +28,51 @@ Using credentials supplied from the Known Breach scenario (this can be performed
 
 Credentials for `jodee.erin` and `michaelina.petronia` were confirmed valid via authentication. `joceline.kaja` did not authenticate with 'DefaultPassword' or a blank password, but is a finding and should be noted.
 
+    netexec smb 192.168.120.100 -u 'jodee.erin' -p 'B:6_}lY$Hs+7'
+    
+    SMB  192.168.120.100  445  DC01-WINDOWSSER  [*] Windows 10 / Server 2019 Build 17763 x64
+     (name:DC01-WINDOWSSER) (domain:lab.local) (signing:True) (SMBv1:None) (Null Auth:True)
+
+    SMB  192.168.120.100  445  DC01-WINDOWSSER  [+] lab.local\jodee.erin:B:6_}lY$Hs+7
+---
+    netexec smb 192.168.120.100 -u 'michaelina.petronia' -p '19t1>C+DJrDI'
+
+    SMB  192.168.120.100  445  DC01-WINDOWSSER  [*] Windows 10 / Server 2019 Build 17763 x64
+     (name:DC01-WINDOWSSER) (domain:lab.local) (signing:True) (SMBv1:None) (Null Auth:True)
+
+    SMB  192.168.120.100  445  DC01-WINDOWSSER  [+] lab.local\michaelina.petronia:19t1>C+DJrDI
+---
+    netexec smb 192.168.120.100 -u 'joceline.kaja' -p 'DefaultPassword'
+
+    SMB  192.168.120.100  445  DC01-WINDOWSSER  [-] lab.local\joceline.kaja:DefaultPassword
+
 ### Commands Used
 
     netexec smb 192.168.120.100 -u 'gsnake' -p 'iloveyou01!' --users
+    netexec smb 192.168.120.100 -u 'jodee.erin' -p 'B:6_}lY$Hs+7'
+    netexec smb 192.168.120.100 -u 'michaelina.petronia' -p '19t1>C+DJrDI'
+    netexec smb 192.168.120.100 -u 'joceline.kaja' -p 'DefaultPassword'
 
 ## Impact
 
-Because LDAP user enumeration can be done with any authenticated account on the DC, exposed secrets in "User Description" is a high impact, resulting in compromised secrets being exposed in the open.
+Because LDAP user enumeration can be done with any authenticated account on the DC, exposed secrets in "User Description" is a high impact, resulting in compromised secrets being exposed in the open.  3 Accounts were identified with information regarding their credentials in plaintext.  2 of those accounts had direct plaintext passwords in their User Description field which authenticated.  If using a "default password" is an existing provisioning standard, every new account is compromised before the user ever logs in.  Coupled with no account lockout threshold the default password can be sprayed to reveal other accounts that have never changed upon creation (read: [Password Spraying](PasswordSpraying)).
 
 ## Remediation
 
 > Remediations are not listed in any specific order of severity unless otherwise listed.
 
 1. **[IMPORTANT]** Never put secrets in the "User Description" field.
-2. Audit existing user profiles for exposed secrets, critical or vital information, in the "User Description" field.
-3. Replace any "default password" provisioning policies with a Randomized At First Login password policy.
+
+2. Replace any "default password" provisioning policies with a Randomized At First Login password policy.
+
+3. Staff training and onboarding processes to eliminate this practice entirely.
+
+4. Audit existing user profiles for exposed secrets, critical or vital information, in the "User Description" field.
+
+---
+
+## Detection
+
+1. This finding generates no events during its exploitation, which makes detection difficult.
+
+2. **Event ID 4661** will help flag bulk enumeration of user objects from non administrative accounts or anomalous sources.
