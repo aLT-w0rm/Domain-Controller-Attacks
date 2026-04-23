@@ -7,6 +7,7 @@
 | **Target** | `192.168.120.100` — `DC01-WINDOWSSERVER2019` |
 | **Domain** | `lab.local` |
 | **Prerequisite** | [Pass the Hash Finding](PassTheHash.md) |
+| **Prerequisite** | Known Breach Credentials (`lab.local\gsnake`) |
 
 ---
 
