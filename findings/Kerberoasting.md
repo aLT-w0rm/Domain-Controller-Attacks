@@ -12,7 +12,7 @@
 
 ## Description
 
-Target system is susceptible to kerberoasting attack, which allows any user with valid domain credentials to enumerate all accounts on the DC with an SPN. After which we can enumerate important user groups like Domain Admins, Service Accounts, Remote Desktop Users.  Original foothold credentials were supplied under a "Assumed Initial Access" scenario (gsnake.)
+Target system is susceptible to kerberoasting attack, which allows any user with valid domain credentials to enumerate all accounts on the DC with an SPN. After which we can enumerate important user groups like Domain Admins, Service Accounts, Remote Desktop Users.  Original foothold credentials were supplied under an "Assumed Initial Access" scenario (gsnake.)
 
 ---
 
